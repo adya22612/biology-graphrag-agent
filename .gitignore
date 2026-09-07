@@ -1,0 +1,18 @@
+# Environments and Secrets
+.env
+venv/
+.venv/
+env/
+
+# Databases and Storage Volumes
+chroma_db_storage/
+neo4j_data/
+
+# Python Cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# OS Files
+.DS_Store
+biology_textbook/

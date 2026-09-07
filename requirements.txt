@@ -1,0 +1,29 @@
+langchain>=0.3.0
+langchain-community>=0.3.0
+langgraph>=0.1.0
+
+# --- Database Client Drivers ---
+neo4j>=5.0.0
+chromadb>=0.5.0
+
+# --- Document Parsing & Chunking ---
+pypdf>=4.0.0
+pymupdf
+tiktoken>=0.7.0
+
+# --- Embeddings & Local Models ---
+sentence-transformers>=3.0.0
+langchain-ollama>=0.1.0
+ollama
+pandas  
+streamlit
+python-dotenv
+langgraph-checkpoint-postgres
+pydantic-settings
+psycopg[binary]
+psycopg-pool
+langchain-experimental 
+langchain-neo4j
+fastapi
+uvicorn
+httpx

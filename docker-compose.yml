@@ -1,0 +1,78 @@
+services:
+  # 1. Neo4j Graph Database
+  neo4j:
+    image: neo4j:5.18.0
+    container_name: graphrag_neo4j
+    ports:
+      - "7474:7474" # Browser UI
+      - "7687:7687" # Bolt Protocol
+    environment:
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  # Add Postgres if using it for LangGraph checkpointing
+  postgres:
+    image: postgres:16-alpine
+    container_name: graphrag_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=graphrag_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: graphrag_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=${NEO4J_PASSWORD}
+      - POSTGRES_URI=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/graphrag_db
+      # Host networking allows reaching Ollama running on your host machine:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./chroma_db_storage:/app/chroma_db_storage
+
+  # 3. Streamlit Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: graphrag_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_API_URL=http://backend:8000
+    depends_on:
+      - backend
+
+volumes:
+  neo4j_data:
+  postgres_data:

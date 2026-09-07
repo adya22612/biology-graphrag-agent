@@ -1,0 +1,14 @@
+[
+  {
+    "question": "What is the definition of photosynthesis?",
+    "expected_answer": "Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with the help of chlorophyll pigments, converting carbon dioxide and water into glucose and oxygen."
+  },
+  {
+    "question": "What role do mitochondria play in a cell?",
+    "expected_answer": "Mitochondria are the powerhouses of the cell, responsible for generating most of the cell's supply of adenosine triphosphate (ATP) through cellular respiration."
+  },
+  {
+    "question": "How do androgens affect male accessory glands?",
+    "expected_answer": "Androgens, such as testosterone, are essential for the maintenance, structural integrity, and secretory functions of male accessory glands like the prostate and seminal vesicles."
+  }
+]

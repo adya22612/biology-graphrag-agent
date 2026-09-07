@@ -1,0 +1,7 @@
+.venv
+__pycache__
+*.pyc
+.git
+.env
+chroma_db_data
+tests/curated_golden_dataset.csv

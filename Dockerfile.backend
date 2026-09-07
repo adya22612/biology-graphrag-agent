@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies if required
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy dependency definitions and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code and scripts
+COPY src/ ./src
+COPY api.py .
+
+EXPOSE 8000
+
+# Start FastAPI using uvicorn
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
