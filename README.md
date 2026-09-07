@@ -9,7 +9,6 @@
 [![Neo4j](https://img.shields.io/badge/Neo4j-Knowledge%20Graph-008CC1?style=flat&logo=neo4j&logoColor=white)](https://neo4j.com)
 [![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Store-FF6B35?style=flat)](https://trychroma.com)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&logo=docker&logoColor=white)](https://docker.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](LICENSE)
 
 *Data and inference stay fully local. Designed for data sovereignty and secure deployment.*
 
@@ -266,12 +265,6 @@ Use `down -v` when you need to re-ingest from scratch or resolve state corruptio
 - **MCP integration** — extend the LangGraph orchestrator to call external biological databases (UniProt, PubChem) as standardised MCP tools, consistent with the architecture used in the [Clinical Drug Recommender](../clinical-recommender)
 - **Kubernetes deployment** — transition from Docker Compose to managed clusters for concurrent thread handling at scale
 - **Evaluation harness** — per-node scoring of the retrieval router, sufficiency grader, and guardrail steps, not just end-to-end output quality
-
----
-
-## License
-
-MIT
 
 ---
 
